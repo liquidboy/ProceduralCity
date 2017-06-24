@@ -88,6 +88,7 @@
     <Compile Include="Assets\scripts\city\Block.cs" />
     <Compile Include="Assets\scripts\city\BuildingLot.cs" />
     <Compile Include="Assets\scripts\city\Edge.cs" />
+    <Compile Include="Assets\scripts\city\Sidewalk.cs" />
     <Compile Include="Assets\scripts\managers\CityMapManager.cs" />
     <Compile Include="Assets\scripts\managers\MaterialManager.cs" />
     <Compile Include="Assets\scripts\_base\DrawableObject.cs" />

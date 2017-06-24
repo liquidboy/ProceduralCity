@@ -38,6 +38,13 @@ public sealed class MaterialManager {
             mat.SetColor("_Emission", Color.green);
             Add(mat.name, mat);
 
+            mat = new Material(Shader.Find("VertexLit"));
+            mat.name = "line_sidewalk";
+            mat.SetColor("_Color", Color.red);
+            mat.SetColor("_SpecColor", Color.red);
+            mat.SetColor("_Emission", Color.red);
+            Add(mat.name, mat);
+
             _isInitialized = true;
         }
     }

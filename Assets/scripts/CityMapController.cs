@@ -45,5 +45,16 @@ public class CityMapController : MonoBehaviour {
                 GL.Vertex(e.end);
             }
         GL.End();
+
+        //draw sidewalks
+        MaterialManager.Instance.Get("line_sidewalk").SetPass(0);
+        GL.Begin(GL.LINES);
+        foreach (Sidewalk s in CityMapManager.Instance.sidewalks)
+            foreach (Edge e in s.edges)
+            {
+                GL.Vertex(e.start);
+                GL.Vertex(e.end);
+            }
+        GL.End();
     }
 }

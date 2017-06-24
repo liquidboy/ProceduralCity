@@ -23,11 +23,17 @@ public sealed class CityMapManager {
         get { return _nodes.AsReadOnly(); }
     }
 
+    private List<Sidewalk> _sidewalks;
+    public IList<Sidewalk> sidewalks
+    {
+        get { return _sidewalks; }
+    }
 
     private CityMapManager()
     {
         _blocks = new List<Block>();
         _nodes = new List<Vector3>();
+        _sidewalks = new List<Sidewalk>();
     }
 
     public void Add(Block block)
@@ -46,10 +52,38 @@ public sealed class CityMapManager {
         return n;
     }
 
+    public void AddSidewalk(Block block)
+    {
+        Sidewalk s = new Sidewalk(block);
+        s.name = "sidewalk";
+        s.material = MaterialManager.Instance.Get("mat_sidewalk");
+        _sidewalks.Add(s);
+    }
+
+    public void DrawSidewalks()
+    {
+        foreach (Sidewalk s in _sidewalks)
+        {
+            s.FindVertices();
+            s.FindTriangles();
+            s.Draw();
+            s.gameObject.SetActive(true);
+        }
+    }
+    
+    public void DestroySidewalks()
+    {
+        foreach (Sidewalk s in _sidewalks)
+            s.Destroy();
+    }
+
     public void Clear()
     {
         _blocks.Clear();
         _nodes.Clear();
+
+        DestroySidewalks();
+        _sidewalks.Clear();
     }
     
 }

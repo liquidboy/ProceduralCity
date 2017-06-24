@@ -16,7 +16,7 @@ public class Block
 
     public List<BuildingLot> finalLots = new List<BuildingLot>();
 
-    //public readonly float sidewalkWidth = 1.75f;
+    public readonly float sidewalkWidth = 1.75f;
 
     public readonly float roadWidth = 2.25f;
 
@@ -26,7 +26,7 @@ public class Block
 
     //public Road road;
 
-    //public Sidewalk sidewalk;
+    public Sidewalk sidewalk;
 
     /*************** CONSTRUCTORS ***************/
 
@@ -85,7 +85,7 @@ public class Block
         {
             FindSidewalkNLotVerts();
             //CityMapManager.Instance.AddRoad(this);
-            //CityMapManager.Instance.AddSidewalk(this);
+            CityMapManager.Instance.AddSidewalk(this);
             initialLot = new BuildingLot(this);
             if (initialLot.isFinal())
             {
@@ -407,7 +407,7 @@ public class Block
 
     private void FindSidewalkNLotVerts()
     {
-        //sidewalkVerts = new Vector3[4];
+        sidewalkVerts = new Vector3[4];
         lotVerts = new Vector3[4];
         float angle, dist, sin;
         Vector3 dir;
@@ -419,9 +419,9 @@ public class Block
             dir = (edges[i].direction - edges[(i + 3) % 4].direction).normalized;
 
             dist = roadWidth / sin;
-            //sidewalkVerts[i] = edges[i].start + dist * dir;
+            sidewalkVerts[i] = edges[i].start + dist * dir;
 
-            dist = roadWidth / sin; //dist = (roadWidth + sidewalkWidth) / sin;
+            dist = (roadWidth + sidewalkWidth) / sin;
             lotVerts[i] = edges[i].start + dist * dir;
         }
     }
