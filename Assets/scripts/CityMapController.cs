@@ -16,11 +16,16 @@ public class CityMapController : MonoBehaviour {
     }
 
 	void Update () {
-        
+        if (Input.GetKeyUp(KeyCode.R))
+        {
+            block = new Block();
+            block.Bisect();
+        }
     }
 
     void OnPostRender()
     {
+        //draw first block
         MaterialManager.Instance.Get("line_block").SetPass(0);
         GL.Begin(GL.LINES);
         foreach (Edge e in block.edges)
@@ -28,6 +33,17 @@ public class CityMapController : MonoBehaviour {
             GL.Vertex(e.start);
             GL.Vertex(e.end);
         }
+        GL.End();
+
+        //draw blocks
+        MaterialManager.Instance.Get("line_block").SetPass(0);
+        GL.Begin(GL.LINES);
+        foreach (Block b in CityMapManager.Instance.blocks)
+            foreach (Edge e in b.edges)
+            {
+                GL.Vertex(e.start);
+                GL.Vertex(e.end);
+            }
         GL.End();
     }
 }

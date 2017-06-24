@@ -16,11 +16,11 @@ public class Block
 
     public List<BuildingLot> finalLots = new List<BuildingLot>();
 
-    public readonly float sidewalkWidth = 1.75f;
+    //public readonly float sidewalkWidth = 1.75f;
 
     public readonly float roadWidth = 2.25f;
 
-    //public Vector3[] sidewalkVerts;
+    public Vector3[] sidewalkVerts;
 
     public Vector3[] lotVerts;
 
@@ -34,7 +34,7 @@ public class Block
     // as starting point and all 4 points must be
     // in the first quadrant
     public Block()
-      : this(new Vector3(1f, 0f, 0f),
+      : this(new Vector3(0f, 0f, 0f),
              new Vector3(0f, 0f, 300f),
              new Vector3(500f, 0f, 300f),
              new Vector3(500f, 0f, 0f))
@@ -83,7 +83,7 @@ public class Block
     {
         if (_isFinal)
         {
-            //FindSidewalkNLotVerts();
+            FindSidewalkNLotVerts();
             //CityMapManager.Instance.AddRoad(this);
             //CityMapManager.Instance.AddSidewalk(this);
             initialLot = new BuildingLot(this);
@@ -405,24 +405,24 @@ public class Block
         }
     }
 
-    //private void FindSidewalkNLotVerts()
-    //{
-    //    sidewalkVerts = new Vector3[4];
-    //    lotVerts = new Vector3[4];
-    //    float angle, dist, sin;
-    //    Vector3 dir;
+    private void FindSidewalkNLotVerts()
+    {
+        //sidewalkVerts = new Vector3[4];
+        lotVerts = new Vector3[4];
+        float angle, dist, sin;
+        Vector3 dir;
 
-    //    for (int i = 0; i < 4; ++i)
-    //    {
-    //        angle = Vector3.Angle(edges[i].direction, -edges[(i + 3) % 4].direction);
-    //        sin = Mathf.Sin(angle / 2 * Mathf.Deg2Rad);
-    //        dir = (edges[i].direction - edges[(i + 3) % 4].direction).normalized;
+        for (int i = 0; i < 4; ++i)
+        {
+            angle = Vector3.Angle(edges[i].direction, -edges[(i + 3) % 4].direction);
+            sin = Mathf.Sin(angle / 2 * Mathf.Deg2Rad);
+            dir = (edges[i].direction - edges[(i + 3) % 4].direction).normalized;
 
-    //        dist = roadWidth / sin;
-    //        sidewalkVerts[i] = edges[i].start + dist * dir;
+            dist = roadWidth / sin;
+            //sidewalkVerts[i] = edges[i].start + dist * dir;
 
-    //        dist = (roadWidth + sidewalkWidth) / sin;
-    //        lotVerts[i] = edges[i].start + dist * dir;
-    //    }
-    //}
+            dist = roadWidth / sin; //dist = (roadWidth + sidewalkWidth) / sin;
+            lotVerts[i] = edges[i].start + dist * dir;
+        }
+    }
 }
