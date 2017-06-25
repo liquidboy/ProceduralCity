@@ -23,6 +23,13 @@ public sealed class CityMapManager {
         get { return _nodes.AsReadOnly(); }
     }
 
+    private List<BuildingLot> _lots;
+    public IList<BuildingLot> lots
+    {
+        get { return _lots.AsReadOnly(); }
+    }
+
+
     private List<Sidewalk> _sidewalks;
     public IList<Sidewalk> sidewalks
     {
@@ -32,6 +39,7 @@ public sealed class CityMapManager {
     private CityMapManager()
     {
         _blocks = new List<Block>();
+        _lots = new List<BuildingLot>();
         _nodes = new List<Vector3>();
         _sidewalks = new List<Sidewalk>();
     }
@@ -39,6 +47,11 @@ public sealed class CityMapManager {
     public void Add(Block block)
     {
         _blocks.Add(block);
+    }
+
+    public void Add(BuildingLot lot)
+    {
+        _lots.Add(lot);
     }
 
     public int Add(Vector3 node)
@@ -81,6 +94,7 @@ public sealed class CityMapManager {
     {
         _blocks.Clear();
         _nodes.Clear();
+        _lots.Clear();
 
         DestroySidewalks();
         _sidewalks.Clear();

@@ -39,6 +39,13 @@ public sealed class MaterialManager {
             Add(mat.name, mat);
 
             mat = new Material(Shader.Find("VertexLit"));
+            mat.name = "line_lot";
+            mat.SetColor("_Color", Color.cyan);
+            mat.SetColor("_SpecColor", Color.cyan);
+            mat.SetColor("_Emission", Color.cyan);
+            Add(mat.name, mat);
+
+            mat = new Material(Shader.Find("VertexLit"));
             mat.name = "line_sidewalk";
             mat.SetColor("_Color", Color.red);
             mat.SetColor("_SpecColor", Color.red);

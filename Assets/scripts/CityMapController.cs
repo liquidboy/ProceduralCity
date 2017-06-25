@@ -25,7 +25,7 @@ public class CityMapController : MonoBehaviour {
 
     void OnPostRender()
     {
-        //draw first block
+        //draw FIRST BLOCK
         MaterialManager.Instance.Get("line_block").SetPass(0);
         GL.Begin(GL.LINES);
         foreach (Edge e in block.edges)
@@ -35,7 +35,7 @@ public class CityMapController : MonoBehaviour {
         }
         GL.End();
 
-        //draw blocks
+        //draw BLOCKS
         MaterialManager.Instance.Get("line_block").SetPass(0);
         GL.Begin(GL.LINES);
         foreach (Block b in CityMapManager.Instance.blocks)
@@ -46,7 +46,7 @@ public class CityMapController : MonoBehaviour {
             }
         GL.End();
 
-        //draw sidewalks
+        //draw SIDEWALKS
         MaterialManager.Instance.Get("line_sidewalk").SetPass(0);
         GL.Begin(GL.LINES);
         foreach (Sidewalk s in CityMapManager.Instance.sidewalks)
@@ -55,6 +55,29 @@ public class CityMapController : MonoBehaviour {
                 GL.Vertex(e.start);
                 GL.Vertex(e.end);
             }
+        GL.End();
+
+        //draw FIRST LOT
+        MaterialManager.Instance.Get("line_lot").SetPass(0);
+        GL.Begin(GL.LINES);
+        foreach (Block b in CityMapManager.Instance.blocks)
+            foreach (Edge e in b.initialLot.edges)
+            {
+                GL.Vertex(e.start);
+                GL.Vertex(e.end);
+            }
+        GL.End();
+
+        //draw LOTS
+        MaterialManager.Instance.Get("line_lot").SetPass(0);
+        GL.Begin(GL.LINES);
+        foreach (Block b in CityMapManager.Instance.blocks)
+            foreach (BuildingLot l in b.finalLots)
+                foreach (Edge e in l.edges)
+                {
+                    GL.Vertex(e.start);
+                    GL.Vertex(e.end);
+                }
         GL.End();
     }
 }
